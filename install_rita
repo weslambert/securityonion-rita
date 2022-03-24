@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# Check for privs
+if [ "$(id -u)" -ne 0 ]; then
+  echo "This script must be run using sudo!"
+  exit 1
+fi
+
+# Create salt and pillar directories
+mkdir -p /opt/custom/salt
+mkdir -p /opt/custom/pillar
+
+# Create top file
+cat << EOF> /opt/custom/salt/top.sls
+custom:
+  '*_standalone':
+    - rita
+  '*_sensor':
+    - rita'
+EOF
+
+# Configure /etc/salt/master for custom states
+if ! grep -q custom /etc/salt/master; then
+  sed -i '/- \/opt\/so\/saltstack\/default\/salt/a\  custom:\n    - /opt/custom/salt' /etc/salt/master
+  sed -i '/- \/opt\/so\/saltstack\/default\/pillar/a\  custom:\n    - /opt/custom/pillar' /etc/salt/master
+  service salt-master restart
+else
+  echo "Salt master already configured!"
+fi
+
+# Copy RITA state into place
+cp salt/rita/ /opt/custom/salt/
+
+# Apply RITA state
+echo "Applying the RITA state..this may take a minute if a another job is running..."
+salt-call state.apply rita saltenv=custom queue=True
+
+echo "Setup complete!"
