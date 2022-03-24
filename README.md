@@ -1,5 +1,6 @@
 # Install RITA on a Security Onion standalone or sensor
 
+## NOTE: This is not an officially supported configuration, and there are NO GUARANTEES as to it's proper operation.
 ```
 git clone https://github.com/weslambert/securityonion-rita
 cd securityonion-rita
