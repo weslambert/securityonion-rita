@@ -7,10 +7,12 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 # Create salt and pillar directories
+echo "Creating custom Salt directories..."
 mkdir -p /opt/custom/salt
 mkdir -p /opt/custom/pillar
 
 # Create top file
+echo "Configuring top file for Salt..."
 cat << EOF> /opt/custom/salt/top.sls
 custom:
   '*_standalone':
@@ -20,6 +22,7 @@ custom:
 EOF
 
 # Configure /etc/salt/master for custom states
+echo "Configuring Salt master..."
 if ! grep -q custom /etc/salt/master; then
   sed -i '/- \/opt\/so\/saltstack\/default\/salt/a\  custom:\n    - /opt/custom/salt' /etc/salt/master
   sed -i '/- \/opt\/so\/saltstack\/default\/pillar/a\  custom:\n    - /opt/custom/pillar' /etc/salt/master
@@ -29,10 +32,11 @@ else
 fi
 
 # Copy RITA state into place
-cp salt/rita/ /opt/custom/salt/
+echo "Copying RITA config..."
+cp -av salt/rita/ /opt/custom/salt/
 
 # Apply RITA state
-echo "Applying the RITA state..this may take a minute if a another job is running..."
+echo "Applying the RITA state...this may take a minute if a another job is running..."
 salt-call state.highstate saltenv=custom queue=True
 
 echo "Setup complete!"
