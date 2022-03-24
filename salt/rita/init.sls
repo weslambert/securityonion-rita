@@ -1,3 +1,4 @@
+{% set MANAGER = salt['grains.get']('master') %}
 ritaconfdir:
   file.directory:
     - name: /opt/so/conf/rita
@@ -30,13 +31,13 @@ ritascripts:
     - template: jinja
     - source: salt://rita/tools/sbin
 
-quay.io/activecm/rita:
+{{ MANAGER }}:5000/custom/rita:
   docker_image.present:
-    - tag: v4.5.0
+    - tag: latest
 
 so-mongo:
  docker_container.running:
-    - image: mongo:4.2
+    - image: {{ MANAGER }}:5000/custom/mongo:4.2
     - hostname: mongo
     - name: so-mongo
     - binds:
