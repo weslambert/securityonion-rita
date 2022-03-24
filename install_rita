@@ -31,6 +31,18 @@ else
   echo "Salt master already configured!"
 fi
 
+# Pull Docker images
+echo "Pulling, tagging, and pushing images to registry..."
+# Tag and push RITA to registry
+docker pull quay.io/activecm/rita
+docker tag quay.io/activecm/rita $(hostname):5000/custom/rita
+docker push $(hostname):5000/custom/rita
+
+# Tag and push MongoDB to registry
+docker pull mongo:4.2
+docker tag mongo:4.2 $(hostname):5000/custom/mongo:4.2
+docker push $(hostname):5000/custom/mongo:4.2
+
 # Copy RITA state into place
 echo "Copying RITA config..."
 cp -av salt/rita/ /opt/custom/salt/
