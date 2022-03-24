@@ -33,6 +33,13 @@ cp salt/rita/ /opt/custom/salt/
 
 # Apply RITA state
 echo "Applying the RITA state..this may take a minute if a another job is running..."
-salt-call state.apply rita saltenv=custom queue=True
+salt-call state.highstate saltenv=custom queue=True
 
 echo "Setup complete!"
+echo
+echo "RITA logs will be written to the following paths by default on all applicable nodes:"
+echo
+echo "/nsm/rita/beacons.csv"
+echo "/nsm/rita/exploded-dns.csv"
+echo "/nsm/rita/long-connections.csv"
+echo
