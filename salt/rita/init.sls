@@ -49,4 +49,5 @@ rita_logs_update:
     - user: root
     - identifier: rita-logs-update
     - name: '/usr/sbin/so-rita-update'
-    - minute: '*'
+    - hour: '1'
+    - minute: '1'
