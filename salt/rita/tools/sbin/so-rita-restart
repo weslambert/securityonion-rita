@@ -1,0 +1,4 @@
+#!/bin/bash
+. /usr/sbin/so-common
+/usr/sbin/so-rita-stop
+/usr/sbin/so-rita-start

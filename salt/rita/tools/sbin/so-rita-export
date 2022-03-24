@@ -1,0 +1,6 @@
+#!/bin/bash
+for i in "$@";
+do
+ # Write logs for show-$i command
+ docker run -t --rm --name=so-rita -v /opt/so/conf/rita/config.yaml:/etc/rita/config.yaml:ro -v /nsm/zeek/logs:/logs/zeek:ro -v /nsm/rita:/logs/rita quay.io/activecm/rita show-$i `hostname` > /nsm/rita/$i.csv
+done

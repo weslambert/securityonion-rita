@@ -1,0 +1,2 @@
+# Import yesterday's Zeek logs into RITA
+docker run -t --rm --name=so-rita -v /opt/so/conf/rita/config.yaml:/etc/rita/config.yaml:ro -v /nsm/zeek/logs:/logs/zeek:ro -v /nsm/rita:/logs/rita quay.io/activecm/rita  import --rolling --numchunks 1 /logs/zeek/`date -d"-1day" +"%Y-%m-%d"/` `hostname`
