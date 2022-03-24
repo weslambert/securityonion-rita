@@ -1,6 +1,21 @@
 # Install RITA on a Security Onion
 ## Intended for Standalone and Sensor nodes.
 ## NOTE: This is not an officially supported configuration, and there are NO GUARANTEES as to it's proper operation.
+
+# Overview
+
+From https://github.com/activecm/rita: 
+> RITA is an open source framework for network traffic analysis.
+>
+> The framework ingests Zeek Logs in TSV format, and currently supports the following major features:
+>
+> Beaconing Detection: Search for signs of beaconing behavior in and out of your network
+> DNS Tunneling Detection Search for signs of DNS based covert channels
+> Blacklist Checking: Query blacklists to search for suspicious domains and hosts
+
+This project automates the setup of RITA log import and `beacon`, `exploded-dns`, and `long-connections` analysis so that resultant log files can be easily consumed by Security Onion.
+
+# Installation
 ```
 git clone https://github.com/weslambert/securityonion-rita
 cd securityonion-rita
