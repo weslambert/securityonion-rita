@@ -1,4 +1,4 @@
-# Install RITA on a Security Onion
+# Install RITA on Security Onion
 ## Intended for Standalone and Sensor nodes.
 ## NOTE: This is not an officially supported configuration, and there are NO GUARANTEES as to it's proper operation.
 
