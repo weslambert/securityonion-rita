@@ -18,7 +18,7 @@ custom:
   '*_standalone':
     - rita
   '*_sensor':
-    - rita'
+    - rita
 EOF
 
 # Configure /etc/salt/master for custom states
